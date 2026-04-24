@@ -1,4 +1,4 @@
-ackage com.imir.backend.repository;
+package com.imir.backend.repository;
 
 import com.example.studyflow.entity.Subject;
 import com.example.studyflow.entity.User;
