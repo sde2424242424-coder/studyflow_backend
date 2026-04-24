@@ -1,7 +1,7 @@
 package com.imir.backend.repository;
 
-import com.example.studyflow.entity.Subject;
-import com.example.studyflow.entity.User;
+import com.imir.backend.entity.Subject;
+import com.imir.backend.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

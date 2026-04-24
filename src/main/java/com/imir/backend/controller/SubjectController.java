@@ -1,8 +1,8 @@
 package com.imir.backend.controller;
 
-import com.example.studyflow.dto.request.CreateSubjectRequestDto;
-import com.example.studyflow.dto.response.SubjectResponseDto;
-import com.example.studyflow.service.SubjectService;
+import com.imir.backend.dto.request.CreateSubjectRequestDto;
+import com.imir.backend.dto.response.SubjectResponseDto;
+import com.imir.backend.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

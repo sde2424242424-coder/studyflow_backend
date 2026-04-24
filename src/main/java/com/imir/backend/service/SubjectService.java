@@ -1,11 +1,11 @@
 package com.imir.backend.service;
 
-import com.example.studyflow.dto.request.CreateSubjectRequestDto;
-import com.example.studyflow.dto.response.SubjectResponseDto;
-import com.example.studyflow.entity.Subject;
-import com.example.studyflow.entity.User;
-import com.example.studyflow.repository.SubjectRepository;
-import com.example.studyflow.repository.UserRepository;
+import com.imir.backend.dto.request.CreateSubjectRequestDto;
+import com.imir.backend.dto.response.SubjectResponseDto;
+import com.imir.backend.entity.Subject;
+import com.imir.backend.entity.User;
+import com.imir.backend.repository.SubjectRepository;
+import com.imir.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
