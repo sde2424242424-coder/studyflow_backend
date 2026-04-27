@@ -26,23 +26,30 @@ public class StudySessionService {
         this.userRepository = userRepository;
     }
 
-    public StudySession finishSession(FinishSessionRequestDto request) {
+    public SessionResponseDto finishSession(FinishSessionRequestDto request) {
 
-        Subject subject = subjectRepository.findById(request.getSubjectId())
-                .orElseThrow(() -> new RuntimeException("Subject not found"));
+    Subject subject = subjectRepository.findById(request.getSubjectId())
+            .orElseThrow(() -> new RuntimeException("Subject not found"));
 
-        // временно фиксированный user (потом заменим на JWT)
-        User user = userRepository.findById(1L)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    User user = subject.getUser();
 
-        StudySession session = new StudySession();
-        session.setSubject(subject);
-        session.setUser(user);
-        session.setDurationSeconds(request.getDurationSeconds());
-        session.setProductivity(request.getProductivity());
-        session.setFatigue(request.getFatigue());
-        session.setNotes(request.getNotes());
+    StudySession session = new StudySession();
+    session.setSubject(subject);
+    session.setUser(user);
+    session.setDurationSeconds(request.getDurationSeconds());
+    session.setProductivity(request.getProductivity());
+    session.setFatigue(request.getFatigue());
+    session.setNotes(request.getNotes());
 
-        return sessionRepository.save(session);
-    }
+    StudySession saved = sessionRepository.save(session);
+
+    return new SessionResponseDto(
+            saved.getId(),
+            saved.getDurationSeconds(),
+            saved.getProductivity(),
+            saved.getFatigue(),
+            saved.getNotes(),
+            saved.getCreatedAt(),
+            saved.getSubject().getId()
+    );
 }

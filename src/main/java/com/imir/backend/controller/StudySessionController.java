@@ -16,7 +16,7 @@ public class StudySessionController {
     }
 
     @PostMapping
-    public StudySession finishSession(@RequestBody FinishSessionRequestDto request) {
+    public SessionResponseDto finishSession(@RequestBody FinishSessionRequestDto request) {
         return sessionService.finishSession(request);
     }
 }
