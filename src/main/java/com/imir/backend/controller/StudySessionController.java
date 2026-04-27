@@ -2,16 +2,16 @@ package com.imir.backend.controller;
 
 import com.imir.backend.dto.request.FinishSessionRequestDto;
 import com.imir.backend.entity.StudySession;
-import com.imir.backend.service.SessionService;
+import com.imir.backend.service.StudySessionService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/sessions")
-public class SessionController {
+public class StudySessionController {
 
-    private final SessionService sessionService;
+    private final StudySessionService sessionService;
 
-    public SessionController(SessionService sessionService) {
+    public StudySessionController(StudySessionService sessionService) {
         this.sessionService = sessionService;
     }
 
