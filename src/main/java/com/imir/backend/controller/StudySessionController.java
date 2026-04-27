@@ -1,7 +1,7 @@
 package com.imir.backend.controller;
 
 import com.imir.backend.dto.request.FinishSessionRequestDto;
-import com.imir.backend.entity.StudySession;
+import com.imir.backend.dto.response.SessionResponseDto;
 import com.imir.backend.service.StudySessionService;
 import org.springframework.web.bind.annotation.*;
 

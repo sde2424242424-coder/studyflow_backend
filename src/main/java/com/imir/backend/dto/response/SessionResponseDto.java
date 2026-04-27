@@ -10,7 +10,6 @@ public class SessionResponseDto {
     private int fatigue;
     private String notes;
     private LocalDateTime createdAt;
-
     private Long subjectId;
 
     public SessionResponseDto(Long id,
@@ -29,31 +28,11 @@ public class SessionResponseDto {
         this.subjectId = subjectId;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public long getDurationSeconds() {
-        return durationSeconds;
-    }
-
-    public int getProductivity() {
-        return productivity;
-    }
-
-    public int getFatigue() {
-        return fatigue;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public Long getSubjectId() {
-        return subjectId;
-    }
+    public Long getId() { return id; }
+    public long getDurationSeconds() { return durationSeconds; }
+    public int getProductivity() { return productivity; }
+    public int getFatigue() { return fatigue; }
+    public String getNotes() { return notes; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public Long getSubjectId() { return subjectId; }
 }
