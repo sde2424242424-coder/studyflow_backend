@@ -9,6 +9,8 @@ import com.imir.backend.repository.StudySessionRepository;
 import com.imir.backend.repository.SubjectRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudySessionService {
 
@@ -49,5 +51,21 @@ public class StudySessionService {
                 saved.getCreatedAt(),
                 saved.getSubject().getId()
         );
+    }
+
+    public List<SessionResponseDto> getSessionsBySubject(Long subjectId) {
+
+        return sessionRepository.findBySubjectIdOrderByCreatedAtDesc(subjectId)
+                .stream()
+                .map(s -> new SessionResponseDto(
+                        s.getId(),
+                        s.getDurationSeconds(),
+                        s.getProductivity(),
+                        s.getFatigue(),
+                        s.getNotes(),
+                        s.getCreatedAt(),
+                        s.getSubject().getId()
+                ))
+                .toList();
     }
 }
