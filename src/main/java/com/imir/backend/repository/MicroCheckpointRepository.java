@@ -1,4 +1,11 @@
 package com.imir.backend.repository;
 
-public class MicroCheckpointRepository {
+import com.imir.backend.entity.MicroCheckpoint;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface MicroCheckpointRepository extends JpaRepository<MicroCheckpoint, Long> {
+
+    List<MicroCheckpoint> findByStudySessionIdOrderByCreatedAtAsc(Long studySessionId);
 }

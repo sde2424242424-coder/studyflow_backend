@@ -1,88 +1,41 @@
-package com.imir.backend.entity;
+package com.imir.backend.dto.request;
 
 import com.imir.backend.entity.enums.*;
-import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "session_feedbacks")
-public class SessionFeedback {
+public class FeedbackRequestDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    // Один финальный отзыв относится к одной учебной сессии
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "study_session_id", nullable = false, unique = true)
-    private StudySession studySession;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @NotNull(message = "Study place is required")
     private StudyPlace studyPlace;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @NotNull(message = "Study environment is required")
     private StudyEnvironment studyEnvironment;
 
-    @ElementCollection(targetClass = HelpfulFactor.class)
-    @CollectionTable(
-            name = "session_helpful_factors",
-            joinColumns = @JoinColumn(name = "session_feedback_id")
-    )
-    @Enumerated(EnumType.STRING)
-    @Column(name = "helpful_factor")
     private List<HelpfulFactor> helpfulFactors = new ArrayList<>();
 
-    @ElementCollection(targetClass = DisturbingFactor.class)
-    @CollectionTable(
-            name = "session_disturbing_factors",
-            joinColumns = @JoinColumn(name = "session_feedback_id")
-    )
-    @Enumerated(EnumType.STRING)
-    @Column(name = "disturbing_factor")
     private List<DisturbingFactor> disturbingFactors = new ArrayList<>();
 
-    @Column(nullable = false)
+    @Min(value = 1, message = "Productivity level must be at least 1")
+    @Max(value = 5, message = "Productivity level must be at most 5")
     private int productivityLevel;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @NotNull(message = "Difficulty level is required")
     private DifficultyLevel difficultyLevel;
 
-    @Column(nullable = false)
     private boolean needReview;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @NotNull(message = "Fatigue level is required")
     private FatigueLevel fatigueLevel;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @NotNull(message = "Understanding level is required")
     private UnderstandingLevel understandingLevel;
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
-
-    public SessionFeedback() {
-    }
-
-    @PrePersist
-    public void onCreate() {
-        if (this.createdAt == null) {
-            this.createdAt = LocalDateTime.now();
-        }
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public StudySession getStudySession() {
-        return studySession;
+    public FeedbackRequestDto() {
     }
 
     public StudyPlace getStudyPlace() {
@@ -121,18 +74,6 @@ public class SessionFeedback {
         return understandingLevel;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setStudySession(StudySession studySession) {
-        this.studySession = studySession;
-    }
-
     public void setStudyPlace(StudyPlace studyPlace) {
         this.studyPlace = studyPlace;
     }
@@ -167,9 +108,5 @@ public class SessionFeedback {
 
     public void setUnderstandingLevel(UnderstandingLevel understandingLevel) {
         this.understandingLevel = understandingLevel;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }

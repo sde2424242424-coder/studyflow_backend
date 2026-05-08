@@ -1,11 +1,21 @@
 package com.imir.backend.dto.request;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class FinishSessionRequestDto {
 
+    // Старое поле. Можно временно оставить для совместимости.
     private Long subjectId;
-    private long durationSeconds;
+
+    @NotNull(message = "Duration seconds is required")
+    @Min(value = 0, message = "Duration seconds must be positive")
+    private Long durationSeconds;
+
+    // Старые поля. Потом лучше удалить.
     private int productivity;
     private int fatigue;
+
     private String notes;
 
     public FinishSessionRequestDto() {
@@ -15,7 +25,7 @@ public class FinishSessionRequestDto {
         return subjectId;
     }
 
-    public long getDurationSeconds() {
+    public Long getDurationSeconds() {
         return durationSeconds;
     }
 
@@ -35,7 +45,7 @@ public class FinishSessionRequestDto {
         this.subjectId = subjectId;
     }
 
-    public void setDurationSeconds(long durationSeconds) {
+    public void setDurationSeconds(Long durationSeconds) {
         this.durationSeconds = durationSeconds;
     }
 
