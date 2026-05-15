@@ -1,59 +1,53 @@
 package com.imir.backend.dto.request;
 
-import com.imir.backend.entity.enums.BreakReason;
-import com.imir.backend.entity.enums.DistractionCountRange;
-import com.imir.backend.entity.enums.MoodType;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-
 public class MicroCheckpointRequestDto {
 
-    @NotNull(message = "Distraction count range is required")
-    private DistractionCountRange distractionCountRange;
-
-    @NotNull(message = "Mood is required")
-    private MoodType mood;
-
-    @NotNull(message = "Break reason is required")
-    private BreakReason breakReason;
-
-    @Min(value = 1, message = "Concentration level must be at least 1")
-    @Max(value = 5, message = "Concentration level must be at most 5")
-    private int concentrationLevel;
+    private String distractionCountRange;
+    private String mood;
+    private String breakReason;
+    private Integer concentrationLevel;
+    private Long createdAtMillis;
 
     public MicroCheckpointRequestDto() {
     }
 
-    public DistractionCountRange getDistractionCountRange() {
+    public String getDistractionCountRange() {
         return distractionCountRange;
     }
 
-    public MoodType getMood() {
+    public String getMood() {
         return mood;
     }
 
-    public BreakReason getBreakReason() {
+    public String getBreakReason() {
         return breakReason;
     }
 
-    public int getConcentrationLevel() {
+    public Integer getConcentrationLevel() {
         return concentrationLevel;
     }
 
-    public void setDistractionCountRange(DistractionCountRange distractionCountRange) {
+    public Long getCreatedAtMillis() {
+        return createdAtMillis;
+    }
+
+    public void setDistractionCountRange(String distractionCountRange) {
         this.distractionCountRange = distractionCountRange;
     }
 
-    public void setMood(MoodType mood) {
+    public void setMood(String mood) {
         this.mood = mood;
     }
 
-    public void setBreakReason(BreakReason breakReason) {
+    public void setBreakReason(String breakReason) {
         this.breakReason = breakReason;
     }
 
-    public void setConcentrationLevel(int concentrationLevel) {
+    public void setConcentrationLevel(Integer concentrationLevel) {
         this.concentrationLevel = concentrationLevel;
+    }
+
+    public void setCreatedAtMillis(Long createdAtMillis) {
+        this.createdAtMillis = createdAtMillis;
     }
 }

@@ -16,58 +16,74 @@ public class StudySession {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Один предмет может иметь много учебных сессий
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
 
-    // Один пользователь может иметь много учебных сессий
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // Тип обучения выбирается при старте сессии
     @Enumerated(EnumType.STRING)
     private LearningType learningType;
 
-    // Время начала сессии
     @Column(nullable = false)
     private LocalDateTime startedAt;
 
-    // Время завершения сессии
     private LocalDateTime endedAt;
 
-    // Сколько секунд длилась сессия
     @Column(nullable = false)
     private long durationSeconds;
 
-    // День недели собирается автоматически
+    private Long plannedSeconds;
+
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
 
-    // Был ли хотя бы один перерыв
     private boolean hadBreak;
 
-    // Количество перерывов
     private int breakCount;
 
-    // Количество дней подряд
     private int studyStreakDays;
 
-    // Старое поле. Пока оставляем, чтобы не сломать текущий код.
+    private String studyPlace;
+
+    private String studyEnvironment;
+
+    @ElementCollection
+    @CollectionTable(
+            name = "study_session_helpful_factors",
+            joinColumns = @JoinColumn(name = "study_session_id")
+    )
+    @Column(name = "factor")
+    private List<String> helpfulFactors = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(
+            name = "study_session_disturbing_factors",
+            joinColumns = @JoinColumn(name = "study_session_id")
+    )
+    @Column(name = "factor")
+    private List<String> disturbingFactors = new ArrayList<>();
+
+    private String difficulty;
+
+    private Boolean needReview;
+
+    private String fatigueLevel;
+
+    private Integer understanding;
+
     private int productivity;
 
-    // Старое поле. Пока оставляем, чтобы не сломать текущий код.
     private int fatigue;
 
     @Column(length = 1000)
     private String notes;
 
-    // Одна сессия может иметь много опросов на перерыве
     @OneToMany(mappedBy = "studySession", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MicroCheckpoint> microCheckpoints = new ArrayList<>();
 
-    // Одна сессия имеет один финальный отзыв
     @OneToOne(mappedBy = "studySession", cascade = CascadeType.ALL, orphanRemoval = true)
     private SessionFeedback sessionFeedback;
 
@@ -124,11 +140,19 @@ public class StudySession {
         return durationSeconds;
     }
 
+    public Long getPlannedSeconds() {
+        return plannedSeconds;
+    }
+
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
     }
 
     public boolean isHadBreak() {
+        return hadBreak;
+    }
+
+    public boolean getHadBreak() {
         return hadBreak;
     }
 
@@ -138,6 +162,38 @@ public class StudySession {
 
     public int getStudyStreakDays() {
         return studyStreakDays;
+    }
+
+    public String getStudyPlace() {
+        return studyPlace;
+    }
+
+    public String getStudyEnvironment() {
+        return studyEnvironment;
+    }
+
+    public List<String> getHelpfulFactors() {
+        return helpfulFactors;
+    }
+
+    public List<String> getDisturbingFactors() {
+        return disturbingFactors;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public Boolean getNeedReview() {
+        return needReview;
+    }
+
+    public String getFatigueLevel() {
+        return fatigueLevel;
+    }
+
+    public Integer getUnderstanding() {
+        return understanding;
     }
 
     public int getProductivity() {
@@ -192,6 +248,10 @@ public class StudySession {
         this.durationSeconds = durationSeconds;
     }
 
+    public void setPlannedSeconds(Long plannedSeconds) {
+        this.plannedSeconds = plannedSeconds;
+    }
+
     public void setDayOfWeek(DayOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
@@ -206,6 +266,38 @@ public class StudySession {
 
     public void setStudyStreakDays(int studyStreakDays) {
         this.studyStreakDays = studyStreakDays;
+    }
+
+    public void setStudyPlace(String studyPlace) {
+        this.studyPlace = studyPlace;
+    }
+
+    public void setStudyEnvironment(String studyEnvironment) {
+        this.studyEnvironment = studyEnvironment;
+    }
+
+    public void setHelpfulFactors(List<String> helpfulFactors) {
+        this.helpfulFactors = helpfulFactors;
+    }
+
+    public void setDisturbingFactors(List<String> disturbingFactors) {
+        this.disturbingFactors = disturbingFactors;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public void setNeedReview(Boolean needReview) {
+        this.needReview = needReview;
+    }
+
+    public void setFatigueLevel(String fatigueLevel) {
+        this.fatigueLevel = fatigueLevel;
+    }
+
+    public void setUnderstanding(Integer understanding) {
+        this.understanding = understanding;
     }
 
     public void setProductivity(int productivity) {

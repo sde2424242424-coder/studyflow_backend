@@ -1,37 +1,47 @@
 package com.imir.backend.dto.response;
 
-import com.imir.backend.entity.enums.BreakReason;
-import com.imir.backend.entity.enums.DistractionCountRange;
-import com.imir.backend.entity.enums.MoodType;
+import com.imir.backend.entity.MicroCheckpoint;
 
 import java.time.LocalDateTime;
 
 public class MicroCheckpointResponseDto {
 
     private Long id;
-    private Long sessionId;
-    private DistractionCountRange distractionCountRange;
-    private MoodType mood;
-    private BreakReason breakReason;
-    private int concentrationLevel;
+    private String distractionCountRange;
+    private String mood;
+    private String breakReason;
+    private Integer concentrationLevel;
+    private Long createdAtMillis;
     private LocalDateTime createdAt;
 
     public MicroCheckpointResponseDto() {
     }
 
-    public MicroCheckpointResponseDto(Long id,
-                                      Long sessionId,
-                                      DistractionCountRange distractionCountRange,
-                                      MoodType mood,
-                                      BreakReason breakReason,
-                                      int concentrationLevel,
-                                      LocalDateTime createdAt) {
+    public MicroCheckpointResponseDto(MicroCheckpoint checkpoint) {
+        this.id = checkpoint.getId();
+        this.distractionCountRange = checkpoint.getDistractionCountRange();
+        this.mood = checkpoint.getMood();
+        this.breakReason = checkpoint.getBreakReason();
+        this.concentrationLevel = checkpoint.getConcentrationLevel();
+        this.createdAtMillis = checkpoint.getCreatedAtMillis();
+        this.createdAt = checkpoint.getCreatedAt();
+    }
+
+    public MicroCheckpointResponseDto(
+            Long id,
+            String distractionCountRange,
+            String mood,
+            String breakReason,
+            Integer concentrationLevel,
+            Long createdAtMillis,
+            LocalDateTime createdAt
+    ) {
         this.id = id;
-        this.sessionId = sessionId;
         this.distractionCountRange = distractionCountRange;
         this.mood = mood;
         this.breakReason = breakReason;
         this.concentrationLevel = concentrationLevel;
+        this.createdAtMillis = createdAtMillis;
         this.createdAt = createdAt;
     }
 
@@ -39,27 +49,55 @@ public class MicroCheckpointResponseDto {
         return id;
     }
 
-    public Long getSessionId() {
-        return sessionId;
-    }
-
-    public DistractionCountRange getDistractionCountRange() {
+    public String getDistractionCountRange() {
         return distractionCountRange;
     }
 
-    public MoodType getMood() {
+    public String getMood() {
         return mood;
     }
 
-    public BreakReason getBreakReason() {
+    public String getBreakReason() {
         return breakReason;
     }
 
-    public int getConcentrationLevel() {
+    public Integer getConcentrationLevel() {
         return concentrationLevel;
+    }
+
+    public Long getCreatedAtMillis() {
+        return createdAtMillis;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setDistractionCountRange(String distractionCountRange) {
+        this.distractionCountRange = distractionCountRange;
+    }
+
+    public void setMood(String mood) {
+        this.mood = mood;
+    }
+
+    public void setBreakReason(String breakReason) {
+        this.breakReason = breakReason;
+    }
+
+    public void setConcentrationLevel(Integer concentrationLevel) {
+        this.concentrationLevel = concentrationLevel;
+    }
+
+    public void setCreatedAtMillis(Long createdAtMillis) {
+        this.createdAtMillis = createdAtMillis;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

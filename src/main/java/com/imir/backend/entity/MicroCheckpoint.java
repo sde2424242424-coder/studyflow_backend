@@ -1,8 +1,5 @@
 package com.imir.backend.entity;
 
-import com.imir.backend.entity.enums.BreakReason;
-import com.imir.backend.entity.enums.DistractionCountRange;
-import com.imir.backend.entity.enums.MoodType;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -20,20 +17,19 @@ public class MicroCheckpoint {
     @JoinColumn(name = "study_session_id", nullable = false)
     private StudySession studySession;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private DistractionCountRange distractionCountRange;
+    private String distractionCountRange;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private MoodType mood;
+    private String mood;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private BreakReason breakReason;
+    private String breakReason;
 
     @Column(nullable = false)
     private int concentrationLevel;
+
+    private Long createdAtMillis;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
@@ -56,20 +52,24 @@ public class MicroCheckpoint {
         return studySession;
     }
 
-    public DistractionCountRange getDistractionCountRange() {
+    public String getDistractionCountRange() {
         return distractionCountRange;
     }
 
-    public MoodType getMood() {
+    public String getMood() {
         return mood;
     }
 
-    public BreakReason getBreakReason() {
+    public String getBreakReason() {
         return breakReason;
     }
 
     public int getConcentrationLevel() {
         return concentrationLevel;
+    }
+
+    public Long getCreatedAtMillis() {
+        return createdAtMillis;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -84,20 +84,24 @@ public class MicroCheckpoint {
         this.studySession = studySession;
     }
 
-    public void setDistractionCountRange(DistractionCountRange distractionCountRange) {
+    public void setDistractionCountRange(String distractionCountRange) {
         this.distractionCountRange = distractionCountRange;
     }
 
-    public void setMood(MoodType mood) {
+    public void setMood(String mood) {
         this.mood = mood;
     }
 
-    public void setBreakReason(BreakReason breakReason) {
+    public void setBreakReason(String breakReason) {
         this.breakReason = breakReason;
     }
 
     public void setConcentrationLevel(int concentrationLevel) {
         this.concentrationLevel = concentrationLevel;
+    }
+
+    public void setCreatedAtMillis(Long createdAtMillis) {
+        this.createdAtMillis = createdAtMillis;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {

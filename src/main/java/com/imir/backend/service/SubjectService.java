@@ -9,6 +9,7 @@ import com.imir.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,23 +36,29 @@ public class SubjectService {
     public List<SubjectResponseDto> getSubjects() {
         User user = getCurrentUser();
 
-        return subjectRepository.findByUser(user)
-                .stream()
-                .map(this::toDto)
-                .toList();
+        return subjectRepository.findByUserId(user.getId())
+        .stream()
+        .map(this::toDto)
+        .toList();
     }
 
     public SubjectResponseDto getSubjectById(Long id) {
         User user = getCurrentUser();
 
-        Subject subject = subjectRepository.findById(id)
+        Subject subject = subjectRepository.findByIdAndUserId(id, user.getId())
                 .orElseThrow(() -> new RuntimeException("Subject not found"));
 
-        if (!subject.getUser().getId().equals(user.getId())) {
-            throw new RuntimeException("Access denied");
-        }
-
         return toDto(subject);
+    }
+
+    @Transactional
+    public void deleteSubject(Long subjectId) {
+        User user = getCurrentUser();
+
+        Subject subject = subjectRepository.findByIdAndUserId(subjectId, user.getId())
+                .orElseThrow(() -> new RuntimeException("Subject not found"));
+
+        subjectRepository.delete(subject);
     }
 
     private User getCurrentUser() {

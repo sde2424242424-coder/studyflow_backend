@@ -4,6 +4,7 @@ import com.imir.backend.dto.request.CreateSubjectRequestDto;
 import com.imir.backend.dto.response.SubjectResponseDto;
 import com.imir.backend.service.SubjectService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,5 +29,11 @@ public class SubjectController {
     @GetMapping("/{id}")
     public SubjectResponseDto getSubjectById(@PathVariable Long id) {
         return subjectService.getSubjectById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSubject(@PathVariable Long id) {
+        subjectService.deleteSubject(id);
+        return ResponseEntity.noContent().build();
     }
 }

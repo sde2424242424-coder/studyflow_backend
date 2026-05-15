@@ -1,22 +1,27 @@
 package com.imir.backend.dto.request;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FinishSessionRequestDto {
 
-    // Старое поле. Можно временно оставить для совместимости.
     private Long subjectId;
-
-    @NotNull(message = "Duration seconds is required")
-    @Min(value = 0, message = "Duration seconds must be positive")
     private Long durationSeconds;
-
-    // Старые поля. Потом лучше удалить.
-    private int productivity;
-    private int fatigue;
-
+    private Long plannedSeconds;
+    private Integer productivity;
+    private Integer fatigue;
     private String notes;
+
+    private String studyPlace;
+    private String studyEnvironment;
+    private List<String> helpfulFactors = new ArrayList<>();
+    private List<String> disturbingFactors = new ArrayList<>();
+    private String difficulty;
+    private Boolean needReview;
+    private String fatigueLevel;
+    private Integer understanding;
+
+    private List<MicroCheckpointRequestDto> microCheckpoints = new ArrayList<>();
 
     public FinishSessionRequestDto() {
     }
@@ -25,39 +30,119 @@ public class FinishSessionRequestDto {
         return subjectId;
     }
 
-    public Long getDurationSeconds() {
-        return durationSeconds;
-    }
-
-    public int getProductivity() {
-        return productivity;
-    }
-
-    public int getFatigue() {
-        return fatigue;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
     public void setSubjectId(Long subjectId) {
         this.subjectId = subjectId;
+    }
+
+    public Long getDurationSeconds() {
+        return durationSeconds;
     }
 
     public void setDurationSeconds(Long durationSeconds) {
         this.durationSeconds = durationSeconds;
     }
 
-    public void setProductivity(int productivity) {
+    public Long getPlannedSeconds() {
+        return plannedSeconds;
+    }
+
+    public void setPlannedSeconds(Long plannedSeconds) {
+        this.plannedSeconds = plannedSeconds;
+    }
+
+    public Integer getProductivity() {
+        return productivity;
+    }
+
+    public void setProductivity(Integer productivity) {
         this.productivity = productivity;
     }
 
-    public void setFatigue(int fatigue) {
+    public Integer getFatigue() {
+        return fatigue;
+    }
+
+    public void setFatigue(Integer fatigue) {
         this.fatigue = fatigue;
+    }
+
+    public String getNotes() {
+        return notes;
     }
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getStudyPlace() {
+        return studyPlace;
+    }
+
+    public void setStudyPlace(String studyPlace) {
+        this.studyPlace = studyPlace;
+    }
+
+    public String getStudyEnvironment() {
+        return studyEnvironment;
+    }
+
+    public void setStudyEnvironment(String studyEnvironment) {
+        this.studyEnvironment = studyEnvironment;
+    }
+
+    public List<String> getHelpfulFactors() {
+        return helpfulFactors;
+    }
+
+    public void setHelpfulFactors(List<String> helpfulFactors) {
+        this.helpfulFactors = helpfulFactors;
+    }
+
+    public List<String> getDisturbingFactors() {
+        return disturbingFactors;
+    }
+
+    public void setDisturbingFactors(List<String> disturbingFactors) {
+        this.disturbingFactors = disturbingFactors;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public Boolean getNeedReview() {
+        return needReview;
+    }
+
+    public void setNeedReview(Boolean needReview) {
+        this.needReview = needReview;
+    }
+
+    public String getFatigueLevel() {
+        return fatigueLevel;
+    }
+
+    public void setFatigueLevel(String fatigueLevel) {
+        this.fatigueLevel = fatigueLevel;
+    }
+
+    public Integer getUnderstanding() {
+        return understanding;
+    }
+
+    public void setUnderstanding(Integer understanding) {
+        this.understanding = understanding;
+    }
+
+    public List<MicroCheckpointRequestDto> getMicroCheckpoints() {
+        return microCheckpoints;
+    }
+
+    public void setMicroCheckpoints(List<MicroCheckpointRequestDto> microCheckpoints) {
+        this.microCheckpoints = microCheckpoints;
     }
 }

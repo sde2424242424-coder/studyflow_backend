@@ -1,66 +1,69 @@
 package com.imir.backend.dto.response;
 
-import com.imir.backend.entity.enums.LearningType;
+import com.imir.backend.entity.StudySession;
 
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SessionResponseDto {
 
     private Long id;
     private Long subjectId;
-
-    private LearningType learningType;
-
-    private LocalDateTime startedAt;
-    private LocalDateTime endedAt;
-
-    private long durationSeconds;
-
-    private DayOfWeek dayOfWeek;
-
-    private boolean hadBreak;
-    private int breakCount;
-    private int studyStreakDays;
-
-    // Старые поля. Пока оставляем для совместимости.
-    private int productivity;
-    private int fatigue;
-
+    private Long durationSeconds;
+    private Long plannedSeconds;
+    private Integer productivity;
+    private Integer fatigue;
     private String notes;
     private LocalDateTime createdAt;
 
-    public SessionResponseDto() {
-    }
+    private String studyPlace;
+    private String studyEnvironment;
+    private List<String> helpfulFactors;
+    private List<String> disturbingFactors;
+    private String difficulty;
+    private Boolean needReview;
+    private String fatigueLevel;
+    private Integer understanding;
+    private List<MicroCheckpointResponseDto> microCheckpoints;
 
-    public SessionResponseDto(Long id,
-                              Long subjectId,
-                              LearningType learningType,
-                              LocalDateTime startedAt,
-                              LocalDateTime endedAt,
-                              long durationSeconds,
-                              DayOfWeek dayOfWeek,
-                              boolean hadBreak,
-                              int breakCount,
-                              int studyStreakDays,
-                              int productivity,
-                              int fatigue,
-                              String notes,
-                              LocalDateTime createdAt) {
-        this.id = id;
-        this.subjectId = subjectId;
-        this.learningType = learningType;
-        this.startedAt = startedAt;
-        this.endedAt = endedAt;
-        this.durationSeconds = durationSeconds;
-        this.dayOfWeek = dayOfWeek;
-        this.hadBreak = hadBreak;
-        this.breakCount = breakCount;
-        this.studyStreakDays = studyStreakDays;
-        this.productivity = productivity;
-        this.fatigue = fatigue;
-        this.notes = notes;
-        this.createdAt = createdAt;
+    public SessionResponseDto(StudySession session) {
+        this.id = session.getId();
+
+        if (session.getSubject() != null) {
+            this.subjectId = session.getSubject().getId();
+        }
+
+        this.durationSeconds = session.getDurationSeconds();
+        this.plannedSeconds = session.getPlannedSeconds();
+        this.productivity = session.getProductivity();
+        this.fatigue = session.getFatigue();
+        this.notes = session.getNotes();
+        this.createdAt = session.getCreatedAt();
+
+        this.studyPlace = session.getStudyPlace();
+        this.studyEnvironment = session.getStudyEnvironment();
+        this.helpfulFactors = session.getHelpfulFactors() != null
+                ? session.getHelpfulFactors()
+                : new ArrayList<>();
+
+        this.disturbingFactors = session.getDisturbingFactors() != null
+                ? session.getDisturbingFactors()
+                : new ArrayList<>();
+
+        this.difficulty = session.getDifficulty();
+        this.needReview = session.getNeedReview();
+        this.fatigueLevel = session.getFatigueLevel();
+        this.understanding = session.getUnderstanding();
+
+        this.microCheckpoints = new ArrayList<>();
+
+        if (session.getMicroCheckpoints() != null) {
+            this.microCheckpoints = session.getMicroCheckpoints()
+                    .stream()
+                    .map(MicroCheckpointResponseDto::new)
+                    .toList();
+        }
     }
 
     public Long getId() {
@@ -71,43 +74,19 @@ public class SessionResponseDto {
         return subjectId;
     }
 
-    public LearningType getLearningType() {
-        return learningType;
-    }
-
-    public LocalDateTime getStartedAt() {
-        return startedAt;
-    }
-
-    public LocalDateTime getEndedAt() {
-        return endedAt;
-    }
-
-    public long getDurationSeconds() {
+    public Long getDurationSeconds() {
         return durationSeconds;
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
+    public Long getPlannedSeconds() {
+        return plannedSeconds;
     }
 
-    public boolean isHadBreak() {
-        return hadBreak;
-    }
-
-    public int getBreakCount() {
-        return breakCount;
-    }
-
-    public int getStudyStreakDays() {
-        return studyStreakDays;
-    }
-
-    public int getProductivity() {
+    public Integer getProductivity() {
         return productivity;
     }
 
-    public int getFatigue() {
+    public Integer getFatigue() {
         return fatigue;
     }
 
@@ -117,5 +96,41 @@ public class SessionResponseDto {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public String getStudyPlace() {
+        return studyPlace;
+    }
+
+    public String getStudyEnvironment() {
+        return studyEnvironment;
+    }
+
+    public List<String> getHelpfulFactors() {
+        return helpfulFactors;
+    }
+
+    public List<String> getDisturbingFactors() {
+        return disturbingFactors;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public Boolean getNeedReview() {
+        return needReview;
+    }
+
+    public String getFatigueLevel() {
+        return fatigueLevel;
+    }
+
+    public Integer getUnderstanding() {
+    return understanding;
+    }
+
+    public List<MicroCheckpointResponseDto> getMicroCheckpoints() {
+        return microCheckpoints;
     }
 }
