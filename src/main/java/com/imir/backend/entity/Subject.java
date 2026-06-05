@@ -26,6 +26,16 @@ public class Subject {
 
     private String description;
 
+    private Integer plannedTotalMinutes;
+
+    private Integer goalMinutesPerSession;
+
+    private String learningType;
+
+    private String notes;
+
+    private String studyFrequency;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -71,5 +81,45 @@ public class Subject {
 
     public void setStudySessions(List<StudySession> studySessions) {
         this.studySessions = studySessions;
+    }
+
+    public Integer getPlannedTotalMinutes() {
+    return plannedTotalMinutes;
+    }
+
+    public void setPlannedTotalMinutes(Integer plannedTotalMinutes) {
+        this.plannedTotalMinutes = plannedTotalMinutes;
+    }
+
+    public Integer getGoalMinutesPerSession() {
+        return goalMinutesPerSession;
+    }
+
+    public void setGoalMinutesPerSession(Integer goalMinutesPerSession) {
+        this.goalMinutesPerSession = goalMinutesPerSession;
+    }
+
+    public String getLearningType() {
+        return learningType;
+    }
+
+    public void setLearningType(String learningType) {
+        this.learningType = learningType;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getStudyFrequency() {
+        return studyFrequency;
+    }
+
+    public void setStudyFrequency(String studyFrequency) {
+        this.studyFrequency = studyFrequency;
     }
 }

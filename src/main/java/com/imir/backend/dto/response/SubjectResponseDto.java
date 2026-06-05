@@ -6,13 +6,29 @@ public class SubjectResponseDto {
     private String title;
     private String description;
 
-    public SubjectResponseDto() {
-    }
+    private Integer plannedTotalMinutes;
+    private Integer goalMinutesPerSession;
+    private String learningType;
+    private String notes;
+    private String studyFrequency;
 
-    public SubjectResponseDto(Long id, String title, String description) {
+    public SubjectResponseDto(
+            Long id,
+            String title,
+            String description,
+            Integer plannedTotalMinutes,
+            Integer goalMinutesPerSession,
+            String learningType,
+            String notes,
+            String studyFrequency) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.plannedTotalMinutes = plannedTotalMinutes;
+        this.goalMinutesPerSession = goalMinutesPerSession;
+        this.learningType = learningType;
+        this.notes = notes;
+        this.studyFrequency = studyFrequency;
     }
 
     public Long getId() {
@@ -27,15 +43,27 @@ public class SubjectResponseDto {
         return description;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Integer getPlannedTotalMinutes() {
+        return plannedTotalMinutes;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public Integer getGoalMinutesPerSession() {
+        return goalMinutesPerSession;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getLearningType() {
+        return learningType;
+    }
+
+    public String getNotes() {
+    return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getStudyFrequency() {
+        return studyFrequency;
     }
 }

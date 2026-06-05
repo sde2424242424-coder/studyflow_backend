@@ -4,6 +4,7 @@ import com.imir.backend.dto.request.CreateSubjectRequestDto;
 import com.imir.backend.dto.response.SubjectResponseDto;
 import com.imir.backend.entity.Subject;
 import com.imir.backend.entity.User;
+import com.imir.backend.dto.request.SubjectNoteRequestDto;
 import com.imir.backend.repository.SubjectRepository;
 import com.imir.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,16 @@ public class SubjectService {
         subject.setTitle(request.getTitle());
         subject.setDescription(request.getDescription());
         subject.setUser(user);
+        subject.setPlannedTotalMinutes(request.getPlannedTotalMinutes());
+        subject.setGoalMinutesPerSession(request.getGoalMinutesPerSession());
+        subject.setLearningType(request.getLearningType());
+        subject.setNotes(request.getNotes());
+
+        if (request.getStudyFrequency() != null) {
+            subject.setStudyFrequency(request.getStudyFrequency());
+        } else {
+            subject.setStudyFrequency(request.getLearningType());
+        }
 
         Subject saved = subjectRepository.save(subject);
 
@@ -72,7 +83,28 @@ public class SubjectService {
         return new SubjectResponseDto(
                 subject.getId(),
                 subject.getTitle(),
-                subject.getDescription()
+                subject.getDescription(),
+                subject.getPlannedTotalMinutes(),
+                subject.getGoalMinutesPerSession(),
+                subject.getLearningType(),
+                subject.getNotes(),
+                subject.getStudyFrequency()
         );
+    }
+
+    @Transactional
+    public SubjectResponseDto updateSubjectNotes(Long subjectId, String notes, String userEmail) {
+        Subject subject = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new RuntimeException("Subject not found"));
+
+        if (!subject.getUser().getEmail().equals(userEmail)) {
+            throw new RuntimeException("Access denied");
+        }
+
+        subject.setNotes(notes == null ? "" : notes);
+
+        Subject savedSubject = subjectRepository.save(subject);
+
+        return toDto(savedSubject);
     }
 }
